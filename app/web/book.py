@@ -16,4 +16,4 @@ def search():
             result = YuShuBook.keySearch(q)
         return jsonify(result)  # 将dict转为json输出
     else:
-        return jsonify({})
+        return jsonify(wtforms.errors) #返回所有错误信息
