@@ -13,7 +13,7 @@ def search():
         if is_isbn_or_key == 'isbn':
             result = YuShuBook.isbnSearch(q)
         if is_isbn_or_key == 'key':
-            result = YuShuBook.keySearch(q)
+            result = YuShuBook.keySearch(q,page)
         return jsonify(result)  # 将dict转为json输出
     else:
         return jsonify(wtforms.errors) #返回所有错误信息

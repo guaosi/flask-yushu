@@ -1,5 +1,5 @@
 from HTTP import HTTP
-
+from flask import current_app
 
 class YuShuBook:
     isbn_url="http://t.yushu.im/v2/book/isbn/{}"
@@ -10,8 +10,10 @@ class YuShuBook:
         result=HTTP.get(url)
         return result
     @classmethod
-    def keySearch(cls,word,start=0,count=15):
-        url=cls.key_url.format(word,start,count)
+    def keySearch(cls,word,page=1):
+        url=cls.key_url.format(word,cls.summaryStart(page),current_app.config['PRE_PAGE'])
         result=HTTP.get(url)
         return result
-
+    @staticmethod
+    def summaryStart(page):
+        return (page - 1) * current_app.config['PRE_PAGE']
