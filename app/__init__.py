@@ -1,6 +1,6 @@
 # 初始化app
 from flask import Flask
-from app.models.book import db
+from app.models.base import db
 def create_app():
     app = Flask(__name__)
     app.config.from_object('app.secure')

@@ -1,5 +1,4 @@
 import json
-
 from flask import jsonify, request, current_app, render_template, flash
 from app.forms.book import SearchForm
 from app.lib.helper import isIsbnOrKey
