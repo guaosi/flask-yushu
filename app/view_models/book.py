@@ -6,6 +6,7 @@ class BookViewModel:
         self.publisher=book['publisher']
         self.pages=book['pages'] or ''
         self.price=book['price']
+        self.isbn=book['isbn']
         self.summary=book['summary'] or ''
     @property
     def itor(self):
