@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {{ super() }}
+    {% for key,val in data1.items() %}
+    {{ key }}{{ val }}
+    {{ data1.school | default('没有') }}
+    {% with messages=get_flashed_messages(category_filter=["error","warn"]) %}
+        {{ messages }}
+    {% endwith %}
+        {{ messages }}
+{% endfor %}
+{% endblock %}

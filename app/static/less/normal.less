@@ -1,0 +1,259 @@
+//font-sie
+@nav-height: 60px;
+@title-middle: 18px;
+@title-less-middle: 16px;
+@title-small: 14px;
+
+
+//color
+@shadow-1-color: #E9E9E0;
+@shadow-2-color: #9a9b9c;
+@nav-color: #364653;
+//@main-color: #1abc9c;
+@main-color: #826762;
+//@high-color:#815d5c;
+@high-color: #FB7C85;
+@sub-main-color: #616585;
+@fake-main-color: #8BACA1;
+
+.bg-fake-rgba(@op) {
+  background-color: rgba(139, 172, 161, @op);
+}
+
+@dark-color: #41464B;
+@logo-color:#A9CEAB;
+@normal-black-color: #323232;
+@silver-color: #E1E4E8;
+@sub-title-color: #40454a;
+@shadow-color-1: #555;
+@shadow-color-5: #f0f0f0;
+@shadow-color-2: #8e8E8E;
+@shadow-color-3: #d0d0d0;
+@shadow-color-4: #e0e0e0;
+@shadow-color-6: #f2f5f7;
+@white-color: #ffffff;
+@css-shadow: rgba(184, 187, 192, 0.75);
+
+.description-font {
+  color: @shadow-color-2;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.main-text-font {
+  color: @normal-black-color;
+}
+
+
+.btn-outline {
+  color: @fake-main-color;
+  font-weight: 500;
+  background-color: transparent;
+  border: 1px solid @fake-main-color;
+}
+
+.bg-info {
+  color: #ffffff;
+  padding: 4px 8px 4px 8px;
+  background-color: @fake-main-color;
+  border-radius: 5px;
+}
+
+.btn-normal {
+  .bg-info;
+  background-color: @main-color;
+  border-radius: 0;
+}
+
+.btn-shadow{
+  .btn-normal;
+  background-color: @shadow-color-2;
+}
+
+.btn-big {
+  .bg-info;
+  height: 47px;
+  border-radius: 0;
+}
+
+.description-title {
+  font-size: 16px;
+  color: @shadow-color-2;
+}
+
+.sub-title {
+  font-size: 16px;
+  color: @sub-title-color;
+}
+
+.large-title{
+  font-size: 20px;
+  color:@sub-title-color;
+}
+
+.sub-title-color {
+  color: @sub-title-color;
+  font-weight: 400;
+}
+
+.bg-head {
+  background-color: @fake-main-color;
+  height: 65px;
+  //padding: 12px;
+}
+
+.title {
+  color: @main-color;
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.book-middle-title {
+  font-size: @title-less-middle;
+  color: @normal-black-color;
+}
+
+.description-font-1 {
+  font-size: 15px;
+  color: @shadow-color-5;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border-bottom: 1px dashed @fake-main-color;
+  height: 1px;
+  opacity: 0.6;
+
+  //color : @fake-main-color
+}
+
+.link-normal {
+  color: @main-color
+}
+
+.highlight {
+  color: @high-color;
+}
+
+.main-color {
+  color: @main-color;
+}
+
+.space {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.white-bg-margin {
+  margin-top: 110px;
+}
+
+.title-middle {
+  font-size: @title-middle;
+  font-weight: bold
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.title-small {
+  font-size: @title-small
+}
+
+.book-img-base {
+  height: 166px;
+  width: 111px;
+}
+
+.book-img-small {
+  height: 135px;
+  width: 92px;
+}
+
+.shadow-bottom {
+  border-bottom: 1px solid @shadow-1-color
+}
+
+.none-input {
+  margin-bottom: 2px;
+  padding: 9px;
+  background-color: #EBEBEB;
+  border: none;
+  line-height: 24px;
+}
+
+.form-control {
+  border-radius: 0;
+}
+
+.normal-input {
+  height: 35px;
+  line-height: 24px;
+  border: 1px solid #ccc;
+}
+
+.input-margin {
+  label {
+    margin-bottom: 10px;
+  }
+
+  textarea, input {
+    margin-bottom: 20px;
+  }
+}
+
+.alert {
+  //position:absolute;
+  color: @high-color;
+  font-size: 18px;
+  background-color: @silver-color;
+  border-radius: 0;
+  padding: 20px;
+  text-align: center;
+  border: none;
+}
+
+.flex-vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-vertical-center-height{
+  .flex-vertical-center;
+  height:@nav-height;
+}
+
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-vertical-hor-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-hor-center {
+  display: flex;
+  justify-content: center;
+}
+
+.cssshadow(@color) {
+  //-moz-box-shadow: 3px 3px 4px @color;
+  //-webkit-box-shadow: 3px 3px 4px @color;
+  box-shadow: 0 5px 9.5px 0.5px @color;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#000000');
+}
+
+.shadow {
+  .cssshadow(@css-shadow)
+}
+
+

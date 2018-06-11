@@ -1,0 +1,21 @@
+.drift-container {
+  border: 1px solid #e0e0e0;
+  padding: 20px 0 0 0;
+  color: #333;
+}
+.message-container {
+  padding: 10px 0 0 0;
+  background-color: #e8ebef;
+}
+.message-flag {
+  color: #8BACA1;
+}
+.description div {
+  margin-bottom: 5px;
+}
+.description div > span:first-child {
+  color: #8e8E8E;
+}
+.status-color {
+  color: #FB7C85;
+}

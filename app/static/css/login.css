@@ -1,0 +1,8 @@
+.password-box {
+  background-color: #EBEBEB;
+}
+#forget-password:before {
+  content: '';
+  border-left: 1px solid #999;
+  margin-right: 15px;
+}

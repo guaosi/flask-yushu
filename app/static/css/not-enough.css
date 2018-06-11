@@ -1,0 +1,15 @@
+.bg {
+  background-color: #8BACA1;
+  padding: 15px;
+  color: #ffffff;
+  margin-left: 15px;
+}
+.bg-opacity {
+  background-color: #8BACA1;
+  padding: 15px;
+  color: #ffffff;
+  margin-left: 15px;
+  background-color: rgba(139, 172, 161, 0.3);
+  color: #323232;
+  margin-left: 0;
+}

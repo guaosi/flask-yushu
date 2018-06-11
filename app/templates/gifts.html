@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/gifts.css')}}">
+{% endblock %}
+{% block content %}
+    <div class="row module-title shadow-bottom">
+        <div class="col-md-2">
+            <span class='description-title'>最近上传</span>
+        </div>
+        <hr/>
+    </div>
+    <div class="row">
+        {% for book in recent.books %}
+            <a href="{{ url_for('web.bool_detail', isbn=book.isbn) }}" class="">
+                <div class="col-md-5 col-padding">
+                    <div class="col-md-8">
+                        <img class="book-img-base" src="{{ book.image }}">
+                    </div>
+                    <div class="col-md-9 flex-vertical">
+                            <span id="title"
+                                  style="font-size: 16px;margin-bottom: 15px">{{ book.title }}</span>
+                        <span id="author">{{ book.author }}</span>
+                        <span id="publisher">{{ book.publisher }}</span>
+                        <span id="price">{{ book.price }}</span>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    {{ super() }}
+    <div class="row flex-vertical-center">
+        <div style="margin-top:20px;" class="col-md-6">
+            <span class="sub-title">我想要的书籍  共  {{ wishes | length }} 本</span>
+            <hr>
+        </div>
+    </div>
+    {% for wish in wishes %}
+        <div class="row">
+            <a href="{{ url_for('web.book_detail', isbn=wish.book.isbn) }}" class="">
+                <div style="margin-bottom:30px;" class="col-md-9 col-padding">
+                    <div class="col-md-2">
+                        <img class="book-img-small shadow" src="{{ wish.book.image }}">
+                    </div>
+                    <div style="margin-top:6px;" class="col-md-6 flex-vertical">
+                            <span id="title"
+                                  class="book-middle-title">{{ wish.book.title }}</span>
+                        <div style="margin-top:6px;"
+                             class="flex-vertical description-font">
+                            <span id="author">{{ wish.book.author }}</span>
+                            <span id="publisher">{{ wish.book.publisher }}</span>
+                            <span id="price">{{ wish.book.price }}</span>
+                            <span id="isbn">{{ wish.book.isbn }}</span>
+                        </div>
+                        <a class="link-normal"
+                           href="{{ url_for('web.redraw_from_wish', isbn=wish.book.isbn) }}">
+                            撤销
+                        </a>
+                    </div>
+                    <div class="col-md-3 flex-vertical">
+                        {% if wish.wishes_count %}
+                            <a href="{{ url_for('web.book_detail', isbn=wish.book.isbn) }}">
+                                <span class="bg-info">{{ wish.wishes_count }}人赠送</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename="js/util.js") }}"></script>
+{% endblock %}

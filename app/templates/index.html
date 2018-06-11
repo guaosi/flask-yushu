@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+    <div id="books" class="row">
+        {% for book in recent %}
+            <div class="col-md-4 book-container">
+                <a href="{{ url_for('web.book_detail', isbn=book.isbn) }}" class="">
+                    <div class="col-md-4 no-padding">
+                        <img class="book-img cssshadow" src="{{ book.image }}">
+                    </div>
+                    <div style="margin-left: 0;" class="col-md-8 flex-vertical book-info">
+                        <span class="title">{{ book.title }}</span>
+                        <div class="description-font"><span>作者：</span><span>{{ book.author }}</span>
+                        </div>
+                        <span class="summary description-font">{{ book.summary }}</span>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

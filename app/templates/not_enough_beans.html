@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/not-enough.css')}}">
+{% endblock %}
+{#{% block navbar %}#}
+{#    #}
+{#{% endblock %}#}
+{% block content %}
+    <div style="margin-top:60px;" class="row">
+        <div class="col-md-12 flex-vertical main-color">
+            <span style="margin-bottom: 10px;" class="large-title">你没有足够的鱼豆或超过限制</span></span>
+            <span>当前你有{{ beans }}个鱼豆</span>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="main-color">
+                温馨提示：每请求1本书，需要消耗1个鱼豆；当你已经请求两本书时，你必须先赠送1本书籍。
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div style="margin-top:50px;margin-bottom:30px;" class="col-md-3">
+            <span class="description-font">以下是获取鱼豆的方式</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 bg">
+            <span>1.  上传图书</span>
+        </div>
+        <div class="col-md-9 bg-opacity">
+            <span>在搜索框内搜索书籍，并将书籍“加入到赠送清单” 即可获得0.5个鱼豆。务必确保你愿意赠送此书。</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 bg">
+            <span>2.  赠送图书</span>
+        </div>
+        <div class="col-md-9 bg-opacity">
+            <span>每成功赠送一本图书，我们将额外赠送你1个鱼豆。</span>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+.module-title {
+  margin-top: 50px;
+}
+#books {
+  padding: 0 !important;
+}
+#books > div:nth-of-type(2n) {
+  margin-left: 100px;
+}
+.book-container {
+  padding: 0 !important;
+  background-color: #FFFFFF;
+  margin-top: 60px;
+  border: 1px solid #d0d0d0;
+  border-radius: 2px;
+}
+.book-img {
+  height: 166px;
+  width: 111px;
+  position: relative;
+  top: -30px;
+  left: 10px;
+  box-shadow: 0 5px 9.5px 0.5px rgba(184, 187, 192, 0.75);
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#000000');
+}
+.book-info {
+  color: #666;
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 5px;
+  height: 166px;
+}
+.book-info .summary {
+  height: 70px;
+  padding-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

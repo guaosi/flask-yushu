@@ -1,0 +1,40 @@
+@import (reference) "normal.less";
+.col-padding {
+  padding-top: 50px;
+}
+
+.summary {
+  margin-top:12px;
+  height: 70px;
+  padding-top: 8px;
+  //padding-bottom: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#pagination {
+  margin-top: 80px;
+}
+
+#pagination li {
+  background-color: transparent;
+}
+
+#pagination a {
+  color: @main-color;
+}
+
+#pagination li.active > a {
+  color: #FFFFFF;
+}
+
+#pagination li > a:hover {
+  color: @main-color;
+}
+
+#pagination>.active>a{
+  background-color: @main-color;
+  border-color:@main-color;
+  color:@white-color;
+}
+

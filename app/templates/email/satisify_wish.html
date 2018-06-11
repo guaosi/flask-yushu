@@ -1,0 +1,13 @@
+<p><stong>亲爱的 {{ wish.user.nickname }},</stong></p>
+<p>{{ gift.user.nickname }} 有一本《{{ wish.book.first.title }}》可以赠送给你</p>
+<p>点击<a
+        href="{{ url_for('web.send_drift', gid=gift.id, _external=True) }}">这里</a>填写书籍邮寄地址，
+    等待{{ gift.user.nickname }}将书籍寄送给你
+</p>
+<p>如果无法点击，你也可以将下面的地址复制到浏览器中打开:</p>
+<p>{{ url_for('web.send_drift', gid=gift.id, _external=True) }}</p>
+<p>你的，</p>
+<p>鱼书</p>
+<p>
+    <small>注意，请不要回复此邮件哦</small>
+</p>

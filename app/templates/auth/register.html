@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+   <link rel="stylesheet" href="{{url_for('static', filename='css/register.css')}}">
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+    <div class="row white-bg-margin">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="bg-container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4 text-center">
+                        <span class="big-title">鱼 书</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 flex-vertical personal-detail">
+                        <form action="{{ url_for('web.register') }}" method="post">
+                            <input style="width:100%" id="nickname" name="nickname"
+                                   type="text"
+                                   placeholder="昵称"
+                                   class="none-input"
+                                   value="{{ form.data['nickname'] | default('',true) }}">
+                            <input style="width:100%" id="email" name="email" type="text"
+                                   placeholder="邮箱"
+                                   class="none-input"
+                                   value="{{ form.data['email'] | default('',true) }}">
+                            <input id="password" style="width:100%"
+                                   name="password"
+                                   placeholder="密码"
+                                   class="none-input" type="password">
+                            <input style="margin-top:15px;" id="btn-submit" type="submit"
+                                   class="btn btn-big btn-block" value="注册">
+                        </form>
+                    </div>
+                </div>
+                <div style="margin-top:30px;" class="row">
+                    <div class="col-md-8 text-center col-md-offset-2">
+                        <span class="description-font">已有账号？</span><a
+                            href="{{ url_for('web.login') }}">登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

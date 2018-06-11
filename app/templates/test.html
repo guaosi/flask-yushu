@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+张三
+{{ r2 }}
+{{ data1.name }}
+{# 文字 #}
+{% if data1.age < 18 %}
+    {{ data1.name }}
+    <ul>
+        <li>1</li>
+    </ul>
+{% elif data1.age==18 %}
+    do something
+{% else %}
+    none
+{% endif %}
+{% for key,val in data1.items() %}
+    {{ key }}{{ val }}
+{% endfor %}
+
+
+</body>
+</html>

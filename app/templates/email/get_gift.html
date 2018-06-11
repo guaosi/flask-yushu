@@ -1,0 +1,12 @@
+<p><stong>亲爱的 {{ gift.user.nickname }},</stong></p>
+<p>{{ wisher.nickname }} 想要一本《{{ gift.book.first.title }}》.你刚好有这本书在鱼书上等待赠送。</p>
+<p>点击<a
+        href="{{ url_for('web.pending', _external=True) }}">这里</a>查看书籍的邮寄地址.
+</p>
+<p>无论您是否愿意赠送{{ wisher.nickname }}这本书，都烦请您前往【鱼书】处理此请求。</p>
+<p>如果无法点击，你也可以将下面的地址复制到浏览器中打开:</p>
+<p>{{ url_for('web.pending', _external=True) }}</p>
+<p>你的，鱼书</p>
+<p>
+    <small>注意，请不要回复此邮件哦</small>
+</p>

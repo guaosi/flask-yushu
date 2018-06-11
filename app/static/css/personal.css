@@ -1,0 +1,20 @@
+.outer-container {
+  margin-top: 150px;
+}
+.personal-container {
+  margin-top: 15px;
+  background-color: #ffffff;
+  padding-bottom: 300px;
+}
+.personal-detail {
+  color: #323232;
+  font-size: 15px;
+}
+.personal-detail div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.personal-detail div > span:first-child {
+  color: #8e8E8E;
+}
