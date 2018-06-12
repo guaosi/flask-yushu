@@ -23,3 +23,9 @@ class Base(db.Model):
                 setattr(self,key,value)
     def __init__(self):
         self.create_time=int(datetime.now().timestamp())
+    @property
+    def create_datetime(self):
+        if self.create_time:
+            return datetime.fromtimestamp(self.create_time)
+        else:
+            return None
