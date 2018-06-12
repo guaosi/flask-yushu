@@ -1,1 +1,4 @@
-from app import test
+a={
+    'name':'张三'
+}
+print(a.name)
