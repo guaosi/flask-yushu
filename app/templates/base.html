@@ -68,15 +68,15 @@
         </div>
     </div>
     <div class="container-height flex-vertical-center float-menu">
-{#        {% if not current_user.is_authenticated %}#}
-{#            <div style="float:right">#}
-{#                <a href="{{ url_for('web.login') }}">登录</a>#}
-{#                <a style="margin-left: 40px;" href="{{ url_for('web.register') }}">注册</a>#}
-{#            </div>#}
-{#        {% else %}#}
-{#            <a href="{{ url_for('web.personal_center') }}">{{ current_user.nickname }}的鱼书</a>#}
-{#            <a style="margin-left: 40px;" href="{{ url_for('web.logout') }}">注销</a>#}
-{#        {% endif %}#}
+        {% if not current_user.is_authenticated %}
+            <div style="float:right">
+                <a href="{{ url_for('web.login') }}">登录</a>
+                <a style="margin-left: 40px;" href="{{ url_for('web.register') }}">注册</a>
+            </div>
+        {% else %}
+            <a href="{{ url_for('web.personal_center') }}">{{ current_user.nickname }}的鱼书</a>
+            <a style="margin-left: 40px;" href="{{ url_for('web.logout') }}">注销</a>
+        {% endif %}
     </div>
 {% endblock %}
 <div class='container'>

@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user, login_required
 from app.forms.register import RegisterForm, LoginForm
 from app.models.base import db
 from app.models.user import User
@@ -53,5 +53,7 @@ def change_password():
 
 
 @web.route('/logout')
+@login_required
 def logout():
-    pass
+    logout_user()
+    return redirect(url_for('web.index'))
