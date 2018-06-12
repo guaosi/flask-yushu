@@ -2,7 +2,7 @@ from flask import current_app
 from sqlalchemy import Column, Integer, ForeignKey, Boolean, String, desc, func
 from sqlalchemy.orm import relationship
 from app.models.base import Base, db
-from app.models.wish import Wish
+
 from app.spider.yushu_book import YuShuBook
 
 
@@ -29,6 +29,7 @@ class Gift(Base):
         return gifts
     @classmethod
     def get_wish_counts(cls,isbn_list):
+        from app.models.wish import Wish
         # 计算出对应isbn图书所索要的人数
         count_list=db.session.query(func.count(Wish.id),Wish.isbn).filter(Wish.launched==False,Wish.isbn.in_(isbn_list),Wish.status==1).group_by(Wish.isbn).all()
         wish_count=[{'count':res[0],'isbn':res[1]} for res in count_list]

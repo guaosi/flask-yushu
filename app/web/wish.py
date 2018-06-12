@@ -1,14 +1,21 @@
-from flask import flash, redirect, url_for
+from flask import flash, redirect, url_for, render_template
 from flask_login import login_required, current_user
 
 from app.models.base import db
 from app.models.wish import Wish
+from app.view_models.trade import MyTrades
 from . import web
+
+
 @web.route('/my/wish')
+@login_required
 def my_wish():
-    pass
-
-
+    uid=current_user.id
+    wish_of_mine=Wish.get_user_wishes(uid)
+    isbn_list=[wish.isbn for wish in wish_of_mine]
+    gift_count=Wish.get_gift_counts(isbn_list)
+    viewmodel=MyTrades(wish_of_mine,gift_count)
+    return render_template('my_wish.html',wishes=viewmodel.trades)
 @web.route('/wish/book/<isbn>')
 @login_required
 def save_to_wish(isbn):
