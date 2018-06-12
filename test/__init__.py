@@ -5,3 +5,4 @@
 # print('this is __init__.a='+str(a))
 # from test9 import b
 # print('this is __init__.b='+str(b))
+a=10

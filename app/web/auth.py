@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-
+from flask_login import login_user, current_user
 from app.forms.register import RegisterForm, LoginForm
 from app.models.base import db
 from app.models.user import User
@@ -21,11 +21,17 @@ def register():
 
 @web.route('/login', methods=['GET', 'POST'])
 def login():
-    wtform=LoginForm()
+    if current_user.is_authenticated:
+        return redirect(url_for('web.index'))
+    wtform=LoginForm(request.form)
     if request.method=='POST' and wtform.validate():
-        user=User.query.filter(email=wtform.email.data).first()
-        if user and user.check_password(user.password):
-            pass
+        user=User.query.filter_by(email=wtform.email.data).first()
+        if user and user.check_password(wtform.password.data):
+            login_user(user)
+            url=request.args.get('next')
+            if not url or not url.startswith('/'):
+                url=url_for('web.index')
+            return redirect(url)
         else:
             flash('账号不存在或密码错误')
     return render_template('auth/login.html',form=wtform)
