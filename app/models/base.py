@@ -1,5 +1,17 @@
-from flask_sqlalchemy import SQLAlchemy
+from contextlib import contextmanager
+from datetime import datetime
+
+from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
 from sqlalchemy import Column, Integer, SmallInteger
+class SQLAlchemy(_SQLAlchemy):
+    @contextmanager
+    def auto_commit(self):
+        try: #开启事务
+            yield
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
 db=SQLAlchemy()
 class Base(db.Model):
     __abstract__=True
@@ -9,6 +21,5 @@ class Base(db.Model):
         for key,value in attrs_dict.items():
             if hasattr(self,key) and key != 'id':
                 setattr(self,key,value)
-# from . import book
-# from . import gift
-# from . import user
+    def __init__(self):
+        self.create_time=int(datetime.now().timestamp())

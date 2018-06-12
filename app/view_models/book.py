@@ -8,6 +8,8 @@ class BookViewModel:
         self.price=book['price']
         self.isbn=book['isbn']
         self.summary=book['summary'] or ''
+        self.pubdate=book['pubdate']
+        self.binding=book['binding']
     @property
     def itor(self):
         res=filter(lambda x:True if x else False,[self.author,self.publisher,self.price])

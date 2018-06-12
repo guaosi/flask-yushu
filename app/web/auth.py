@@ -9,12 +9,12 @@ from . import web
 def register():
     wtform = RegisterForm(request.form)
     if request.method=='POST' and wtform.validate():
-        user=User()
-        user.set_attr(wtform.data)
-        # user.nickname=wtform.nickname.data
-        # user.email=wtform.email.data
-        db.session.add(user)
-        db.session.commit()
+        with db.auto_commit():
+            user=User()
+            user.set_attr(wtform.data)
+            # user.nickname=wtform.nickname.data
+            # user.email=wtform.email.data
+            db.session.add(user)
         return redirect(url_for('web.login'))
     return render_template('auth/register.html',form=wtform)
 
