@@ -46,7 +46,7 @@ def forget_password_request():
     if request.method=='POST' and wtform.validate():
         user=User.query.filter_by(email=wtform.email.data).first_or_404()
         send_mail(wtform.email.data,'重置密码','email/reset_password.html',user=user,token=user.generate_token())
-        flash('已经发送一份邮件到您的邮箱:'+wtform.email.data+' 里了，快去查收吧~')
+        return render_template('email_has_send.html')
     return render_template('auth/forget_password_request.html',form=wtform)
 
 @web.route('/reset/password/<token>', methods=['GET', 'POST'])

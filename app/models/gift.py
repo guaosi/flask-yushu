@@ -34,3 +34,5 @@ class Gift(Base):
         count_list=db.session.query(func.count(Wish.id),Wish.isbn).filter(Wish.launched==False,Wish.isbn.in_(isbn_list),Wish.status==1).group_by(Wish.isbn).all()
         wish_count=[{'count':res[0],'isbn':res[1]} for res in count_list]
         return wish_count
+    def is_myself_gift(self,uid):
+        return True if uid==self.uid else False

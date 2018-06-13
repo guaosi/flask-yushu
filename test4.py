@@ -1,4 +1,2 @@
-a={
-    'name':'张三'
-}
+a=dict(name='张三')
 print(a.name)

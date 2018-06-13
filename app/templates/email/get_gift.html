@@ -1,5 +1,5 @@
 <p><stong>亲爱的 {{ gift.user.nickname }},</stong></p>
-<p>{{ wisher.nickname }} 想要一本《{{ gift.book.first.title }}》.你刚好有这本书在鱼书上等待赠送。</p>
+<p>{{ wisher.nickname }} 想要一本《{{ gift.book.title }}》.你刚好有这本书在鱼书上等待赠送。</p>
 <p>点击<a
         href="{{ url_for('web.pending', _external=True) }}">这里</a>查看书籍的邮寄地址.
 </p>
