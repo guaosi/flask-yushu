@@ -1,10 +1,11 @@
+from flask import current_app
 from flask_login import UserMixin, current_user
 from sqlalchemy import Column, Integer, String, Boolean, Float
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import login_manager
 from app.lib.helper import isIsbnOrKey
-from app.models.base import Base
+from app.models.base import Base, db
 from app.models.gift import Gift
 from app.models.wish import Wish
 from app.spider.yushu_book import YuShuBook
@@ -50,7 +51,22 @@ class User(Base,UserMixin):
         if not gift and not wish:
             return True
         return False
-
+    def generate_token(self,expiration=600):
+        s=Serializer(current_app.config['SECRET_KEY'],expiration)
+        return s.dumps({'id':self.id}).decode('utf-8')
+    @staticmethod
+    def reset_password(token,new_password):
+        s=Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data=s.loads(token.encode('utf-8'))
+        except Exception as e:
+            return False
+        uid=data.get('id')
+        with db.auto_commit():
+            user=User.query.get(uid)
+            user.password=new_password
+            db.session.add(user)
+        return True
 @login_manager.user_loader
 def get_user(uid):
     return User.query.get(int(uid))
