@@ -1,12 +1,15 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, current_user, logout_user, login_required
-from app.forms.register import RegisterForm, LoginForm
+from app.forms.auth import RegisterForm, LoginForm, EmailForm
+from app.lib.email import send_mail
 from app.models.base import db
 from app.models.user import User
 from . import web
 
 @web.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('web.index'))
     wtform = RegisterForm(request.form)
     if request.method=='POST' and wtform.validate():
         with db.auto_commit():
@@ -39,8 +42,11 @@ def login():
 
 @web.route('/reset/password', methods=['GET', 'POST'])
 def forget_password_request():
-    pass
-
+    wtform=EmailForm(request.form)
+    if request.method=='POST' and wtform.validate():
+        user=User.query.filter_by(email=wtform.email.data).first_or_404()
+        send_mail(wtform.email.data,'重置密码','email/reset_password.html',user=user,token='123123123')
+    return render_template('auth/forget_password_request.html',form=wtform)
 
 @web.route('/reset/password/<token>', methods=['GET', 'POST'])
 def forget_password(token):
