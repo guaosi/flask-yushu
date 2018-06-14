@@ -4,6 +4,8 @@ from sqlalchemy import or_, desc
 
 from app.forms.drift import DriftForm
 from app.lib.email import send_mail
+from app.lib.enums import PendingStatus
+from app.models.base import db
 from app.models.drift import Drift
 from app.models.gift import Gift
 from app.view_models.drift import DriftCollection
@@ -41,7 +43,12 @@ def pending():
 @web.route('/drift/<int:did>/reject')
 @login_required
 def reject_drift(did):
-    return redirect('web.pending')
+    drift=Drift.query.filter(Drift.id==did,Drift.gifter_id==current_user.id).first_or_404()
+    with db.auto_commit():
+        drift.pending=PendingStatus.Reject
+        db.session.add(drift)
+    flash('已经成功拒绝一条鱼漂请求')
+    return redirect(url_for('web.pending'))
 
 
 @web.route('/drift/<int:did>/redraw')
