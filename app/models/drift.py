@@ -1,6 +1,7 @@
 from flask_login import current_user
 from sqlalchemy import Column, Integer, String, SmallInteger
 
+from app.lib.enums import PendingStatus
 from app.models.base import Base, db
 from app.view_models.book import BookViewModel
 
@@ -29,7 +30,14 @@ class Drift(Base):
     gifter_name=Column(String(20))
 
     #状态
-    pending=Column(SmallInteger,default=1)
+    _pending=Column('pending',SmallInteger,default=1)
+
+    @property
+    def pending(self):
+        return PendingStatus(self._pending)
+    @pending.setter
+    def pending(self,status):
+        self._pending=status.value
 
     def save_to_drift(self,drift_form,current_gift,current_user_id,current_user_nickname):
         with db.auto_commit():

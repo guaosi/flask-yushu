@@ -36,8 +36,10 @@
                         </div>
                         <div><span>联系电话：</span><span>{{ drift.mobile }}</span></div>
                     </div>
+
                     <div class="col-md-2 flex-vertical">
                         {% if drift.you_are == 'gifter' %}
+
                             {% if drift.status.value == 1 %}
                                 <a href="{{ url_for('web.mailed_drift', did=drift.drift_id) }}">
                                     <span class="btn-normal">已邮寄</span>

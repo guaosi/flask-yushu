@@ -32,21 +32,25 @@ def send_drift(gid):
     viewmodel=UsersSummary(current_user)
     return render_template('drift.html',gifter=viewmodel.first,user_beans=current_user.beans,form=wtform)
 @web.route('/pending')
+@login_required
 def pending():
     drifts=Drift.query.filter(or_(Drift.requester_id==current_user.id,Drift.gifter_id==current_user.id),Drift.status==1).order_by(desc(Drift.create_time)).all()
     viewmodel=DriftCollection(drifts,current_user.id)
     return render_template('pending.html',drifts=viewmodel.data)
 
 @web.route('/drift/<int:did>/reject')
+@login_required
 def reject_drift(did):
-    pass
+    return redirect('web.pending')
 
 
 @web.route('/drift/<int:did>/redraw')
+@login_required
 def redraw_drift(did):
     pass
 
 
 @web.route('/drift/<int:did>/mailed')
+@login_required
 def mailed_drift(did):
     pass

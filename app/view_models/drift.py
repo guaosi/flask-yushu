@@ -9,6 +9,7 @@ class DriftViewModel():
         you_are=DriftViewModel.is_requester_or_gift(drift,current_user_id)
         status_str=PendingStatus.pending(drift.pending,you_are)
         r={
+            'you_are':you_are,
             'drift_id':drift.id,
             'book_title':drift.book_title,
             'book_author':drift.book_author,

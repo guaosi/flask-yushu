@@ -4,22 +4,22 @@ class PendingStatus(Enum):
     Success=2
     Reject=3
     Redraw=4
-    @staticmethod
-    def pending(status,key):
+    @classmethod
+    def pending(cls,status,key):
         key_map={
-            1:{
+            cls.Waiting:{
                 'requester':'等待对方邮寄',
                 'gifter':'等待你邮寄'
             },
-            2: {
+            cls.Success: {
                 'requester': '对方已邮寄',
                 'gifter': '你已邮寄'
             },
-            3: {
+            cls.Reject: {
                 'requester': '对方已拒绝',
                 'gifter': '你已拒绝'
             },
-            4: {
+            cls.Redraw: {
                 'requester': '你已撤销',
                 'gifter': '对方已撤销'
             }
