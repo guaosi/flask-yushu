@@ -45,5 +45,5 @@ def redraw_from_gifts(gid):
         with db.auto_commit():
             current_user.beans-=current_app.config['BEANS_UPLOAD_ONE_BOOK']
             gift.delete()
-            flash('您已经成功撤销礼物的赠送')
+            flash('您已经成功撤销书籍: 《'+gift.book['title']+'》的赠送')
     return redirect(url_for('web.my_gifts'))
