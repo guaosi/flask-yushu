@@ -117,7 +117,6 @@ pipenv install flask-login
 - flask-mail
 ```
 pipenv install flask-mail
-
 ```
 ## 运行
 > `python fisher.py`
