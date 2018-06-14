@@ -8,6 +8,7 @@ from app.lib.enums import PendingStatus
 from app.models.base import db
 from app.models.drift import Drift
 from app.models.gift import Gift
+from app.models.user import User
 from app.view_models.drift import DriftCollection
 from app.view_models.user import UsersSummary
 from . import web
@@ -43,9 +44,13 @@ def pending():
 @web.route('/drift/<int:did>/reject')
 @login_required
 def reject_drift(did):
-    drift=Drift.query.filter(Drift.id==did,Drift.gifter_id==current_user.id).first_or_404()
+    drift = Drift.query.filter(
+        Drift.id == did, Drift.gifter_id == current_user.id,Drift._pending==PendingStatus.Waiting.value).first_or_404()
     with db.auto_commit():
         drift.pending=PendingStatus.Reject
+        requester=User.query.filter(User.id==drift.requester_id).first_or_404()
+        requester.beans+=1
+        db.session.add(requester)
         db.session.add(drift)
     flash('已经成功拒绝一条鱼漂请求')
     return redirect(url_for('web.pending'))
@@ -54,7 +59,13 @@ def reject_drift(did):
 @web.route('/drift/<int:did>/redraw')
 @login_required
 def redraw_drift(did):
-    pass
+    with db.auto_commit():
+        drift = Drift.query.filter(Drift.id == did, Drift.requester_id == current_user.id,Drift._pending==PendingStatus.Waiting.value).first_or_404()
+        drift.pending=PendingStatus.Redraw
+        current_user.beans+=1
+        db.session.add(drift)
+    flash('已经成功撤销一条鱼漂请求')
+    return redirect(url_for('web.pending'))
 
 
 @web.route('/drift/<int:did>/mailed')
