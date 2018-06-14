@@ -31,19 +31,19 @@ class Drift(Base):
     #状态
     pending=Column(SmallInteger,default=1)
 
-    def save_to_drift(self,drift_form,current_gift):
+    def save_to_drift(self,drift_form,current_gift,current_user_id,current_user_nickname):
         with db.auto_commit():
             #将验证中有的字段快速填充到对象实例相同的字段
             drift_form.populate_obj(self)
             self.gift_id=current_gift.id
-            self.requester_id=current_user.id
-            self.requester_name=current_user.nickname
+            self.requester_id=current_user_id
+            self.requester_name=current_user_nickname
             self.gifter_id=current_gift.uid
             book=BookViewModel(current_gift.book)
             self.book_title=book.title
             self.book_author=book.author
             self.book_img=book.image
             self.isbn=book.isbn
-            self.gifter_name=book.title
+            self.gifter_name=current_gift.user.nickname
             current_user.beans-=1
             db.session.add(self)

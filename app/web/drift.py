@@ -6,6 +6,7 @@ from app.forms.drift import DriftForm
 from app.lib.email import send_mail
 from app.models.drift import Drift
 from app.models.gift import Gift
+from app.view_models.drift import DriftCollection
 from app.view_models.user import UsersSummary
 from . import web
 
@@ -25,7 +26,7 @@ def send_drift(gid):
     # 步入正文
     if request.method=='POST' and wtform.validate():
         drift=Drift()
-        drift.save_to_drift(wtform,gift)
+        drift.save_to_drift(wtform,gift,current_user.id,current_user.nickname)
         send_mail(gift.user.email,'有人想要您上传的图书: '+gift.book['title'],'email/get_gift.html',wisher=current_user,gift=gift)
         return redirect(url_for('web.pending'))
     viewmodel=UsersSummary(current_user)
@@ -33,7 +34,8 @@ def send_drift(gid):
 @web.route('/pending')
 def pending():
     drifts=Drift.query.filter(or_(Drift.requester_id==current_user.id,Drift.gifter_id==current_user.id),Drift.status==1).order_by(desc(Drift.create_time)).all()
-    pass
+    viewmodel=DriftCollection(drifts,current_user.id)
+    return render_template('pending.html',drifts=viewmodel.data)
 
 @web.route('/drift/<int:did>/reject')
 def reject_drift(did):
