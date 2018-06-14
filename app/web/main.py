@@ -11,4 +11,4 @@ def index():
 
 @web.route('/personal')
 def personal_center():
-    pass
+    return '这里是个人中心'

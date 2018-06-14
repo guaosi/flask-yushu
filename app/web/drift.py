@@ -9,6 +9,7 @@ from app.models.base import db
 from app.models.drift import Drift
 from app.models.gift import Gift
 from app.models.user import User
+from app.models.wish import Wish
 from app.view_models.drift import DriftCollection
 from app.view_models.user import UsersSummary
 from . import web
@@ -45,14 +46,14 @@ def pending():
 @login_required
 def reject_drift(did):
     drift = Drift.query.filter(
-        Drift.id == did, Drift.gifter_id == current_user.id,Drift._pending==PendingStatus.Waiting.value).first_or_404()
+        Drift.id == did, Drift.gifter_id == current_user.id,Drift._pending==PendingStatus.Waiting.value,Drift.status==1).first_or_404()
     with db.auto_commit():
         drift.pending=PendingStatus.Reject
         requester=User.query.filter(User.id==drift.requester_id).first_or_404()
         requester.beans+=1
         db.session.add(requester)
         db.session.add(drift)
-    flash('已经成功拒绝一条鱼漂请求')
+        flash('已经成功拒绝一条鱼漂请求')
     return redirect(url_for('web.pending'))
 
 
@@ -60,15 +61,29 @@ def reject_drift(did):
 @login_required
 def redraw_drift(did):
     with db.auto_commit():
-        drift = Drift.query.filter(Drift.id == did, Drift.requester_id == current_user.id,Drift._pending==PendingStatus.Waiting.value).first_or_404()
+        drift = Drift.query.filter(Drift.id == did, Drift.requester_id == current_user.id,Drift._pending==PendingStatus.Waiting.value,Drift.status==1).first_or_404()
         drift.pending=PendingStatus.Redraw
         current_user.beans+=1
         db.session.add(drift)
-    flash('已经成功撤销一条鱼漂请求')
+        flash('已经成功撤销一条鱼漂请求')
     return redirect(url_for('web.pending'))
 
 
 @web.route('/drift/<int:did>/mailed')
 @login_required
 def mailed_drift(did):
-    pass
+    with db.auto_commit():
+        drift=Drift.query.filter(Drift.id==did,Drift.gifter_id==current_user.id,Drift._pending==PendingStatus.Waiting.value,Drift.status==1).first_or_404()
+        drift.pending=PendingStatus.Success
+        current_user.beans+=1
+        gift=Gift.query.get_or_404(drift.gifter_id)
+        gift.launched=True
+        # 这个人可能心愿里没有添加这本书，但是直接向别人索要
+        wish=Wish.query.filter(Wish.isbn==drift.isbn,Wish.uid==drift.requester_id,Wish.launched==False,Drift.status==1).first()
+        if wish:
+            wish.launched=True
+            db.session.add(wish)
+        db.session.add(drift)
+        db.session.add(gift)
+        flash('已经成功邮寄一条鱼漂了~感谢您的公益风险~')
+    return redirect(url_for('web.pending'))

@@ -17,7 +17,7 @@ class DriftViewModel():
             'date':drift.create_datetime.strftime('%Y-%m-%d'),
             'message':drift.message,
             'address':drift.address,
-            'operator':drift.requester_name if you_are=='requester' else drift.gifter_name,
+            'operator':drift.gifter_name if you_are=='requester' else drift.requester_name,
             'recipient_name':drift.recipient_name,
             'mobile':drift.mobile,
             'status':drift.pending,

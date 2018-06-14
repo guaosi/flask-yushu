@@ -34,6 +34,7 @@ class Drift(Base):
 
     @property
     def pending(self):
+        print(PendingStatus(self._pending))
         return PendingStatus(self._pending)
     @pending.setter
     def pending(self,status):

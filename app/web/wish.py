@@ -37,4 +37,8 @@ def satisfy_wish(wid):
 
 @web.route('/wish/book/<isbn>/redraw')
 def redraw_from_wish(isbn):
-    pass
+    wish=Wish.query.filter_by(uid=current_user.id,isbn=isbn,launched=False).first_or_404()
+    with db.auto_commit():
+        wish.delete()
+        flash('您已经成功撤销礼物的心愿')
+    return redirect(url_for('web.my_wish'))
