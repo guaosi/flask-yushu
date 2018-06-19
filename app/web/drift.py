@@ -34,7 +34,8 @@ def send_drift(gid):
         drift.save_to_drift(wtform,gift,current_user.id,current_user.nickname)
         send_mail(gift.user.email,'有人想要您上传的图书: 《'+gift.book['title']+'》','email/get_gift.html',wisher=current_user,gift=gift)
         return redirect(url_for('web.pending'))
-    viewmodel=UsersSummary(current_user)
+    user=User.query.filter_by(id=gift.uid).first_or_404()
+    viewmodel=UsersSummary(user)
     return render_template('drift.html',gifter=viewmodel.first,user_beans=current_user.beans,form=wtform)
 @web.route('/pending')
 @login_required
@@ -75,15 +76,20 @@ def redraw_drift(did):
 def mailed_drift(did):
     with db.auto_commit():
         drift=Drift.query.filter(Drift.id==did,Drift.gifter_id==current_user.id,Drift._pending==PendingStatus.Waiting.value,Drift.status==1).first_or_404()
+        # 查找索要者
+        requester=User.query.filter_by(id=drift.requester_id).first_or_404()
         drift.pending=PendingStatus.Success
         current_user.beans+=1
-        gift=Gift.query.get_or_404(drift.gifter_id)
+        requester.receive_counter+=1
+        current_user.send_counter+=1
+        gift=Gift.query.get_or_404(drift.gift_id)
         gift.launched=True
         # 这个人可能心愿里没有添加这本书，但是直接向别人索要
         wish=Wish.query.filter(Wish.isbn==drift.isbn,Wish.uid==drift.requester_id,Wish.launched==False,Drift.status==1).first()
         if wish:
             wish.launched=True
             db.session.add(wish)
+        db.session.add(requester)
         db.session.add(drift)
         db.session.add(gift)
         flash('已经成功邮寄一条鱼漂了~感谢您的公益风险~')
