@@ -10,16 +10,6 @@ from app.spider.yushu_book import YuShuBook
 from app.view_models.book import BookViewModel, BookCollection
 from app.view_models.trade import TradeInfo
 from . import web
-@web.route('/tests')
-def test():
-    r1={
-        'name':'张三',
-        'age':18
-    }
-    r2=10
-    flash('this is the first message',category='error')
-    flash('this is the second message',category='warn')
-    return render_template('test2.html',data1=r1,r2=r2)
 @web.route('/book/search')
 def search():
     wtforms=SearchForm(request.args) #传入所有参数,会自动分配验证
